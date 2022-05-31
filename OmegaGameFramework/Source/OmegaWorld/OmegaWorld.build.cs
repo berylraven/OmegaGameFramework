@@ -8,7 +8,7 @@ public class OmegaWorld : ModuleRules
 
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "GameplayTags"});
  
-		PublicIncludePaths.AddRange(new string[] {"OmegaWorld/Public"});
-		PrivateIncludePaths.AddRange(new string[] {"OmegaWorld/Private"});
+		PublicIncludePaths.AddRange(new string[] {"./OmegaWorld/Public"});
+		PrivateIncludePaths.AddRange(new string[] {"./OmegaWorld/Private"});
 	}
 }

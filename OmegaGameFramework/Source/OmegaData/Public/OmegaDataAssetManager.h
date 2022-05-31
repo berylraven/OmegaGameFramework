@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-	#include "Engine/AssetManager.h"
+#include "Engine/AssetManager.h"
 #include "OmegaDataAssetManager.generated.h"
 
 /**

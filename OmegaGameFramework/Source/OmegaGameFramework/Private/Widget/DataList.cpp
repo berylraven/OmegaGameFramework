@@ -29,7 +29,7 @@ void UDataList::ClearList()
 	CurrentA = 0;
 	CurrentB = 0;
 
-	UE_LOG(LogTemp, Warning, TEXT("ListCleared"));
+	// UE_LOG(LogTemp, Warning, TEXT("ListCleared"));
 }
 
 void UDataList::RemoveEntryFromList(int32 Index)
@@ -112,11 +112,13 @@ UDataWidget* UDataList::AddAssetToList(UObject* Asset, FString Flag)
 
 			break;
 		case EOrientation::Orient_Vertical:
-			VSlotRef = Cast<UVerticalBox>(ListPanel)->AddChildToVerticalBox(TempEntry);
-			VSlotRef->SetHorizontalAlignment(EntryHorizontalAlignment);
-			VSlotRef->SetVerticalAlignment(EntryVerticalAlignment);
-			VSlotRef->SetSize(EntrySize);
-
+			auto vbox = Cast<UVerticalBox>(ListPanel);
+			if (vbox) {
+				VSlotRef = vbox->AddChildToVerticalBox(TempEntry);
+				VSlotRef->SetHorizontalAlignment(EntryHorizontalAlignment);
+				VSlotRef->SetVerticalAlignment(EntryVerticalAlignment);
+				VSlotRef->SetSize(EntrySize);
+			}
 			break;
 		}
 
@@ -155,7 +157,7 @@ UDataWidget* UDataList::AddAssetToList(UObject* Asset, FString Flag)
 		}
 		break;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Added WidgetToList"));
+	// UE_LOG(LogTemp, Warning, TEXT("Added WidgetToList"));
 	TempEntry->AddedToDataList(this, Entries.Find(TempEntry), Asset, ListTags, Flag);
 
 	return TempEntry;
@@ -171,7 +173,7 @@ TArray<UDataWidget*> UDataList::AddAssetsToList(TArray<UObject*> Assets, FString
 	TArray<UDataWidget*> LocalEntryList;
 	for (UObject* TempAsset : Assets)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Attempted to add Widget To List"));
+		// UE_LOG(LogTemp, Warning, TEXT("Attempted to add Widget To List"));
 		UDataWidget* LocalEntry = AddAssetToList(TempAsset, Flag);
 		LocalEntryList.Add(LocalEntry);
 	}
@@ -216,20 +218,20 @@ void UDataList::CycleEntry(int32 Amount)
 	int32 MaxSize = Entries.Num();
 	if(HoveredEntry)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hovered Valid"));
+		// UE_LOG(LogTemp, Warning, TEXT("Hovered Valid"));
 		TempEntry = HoveredEntry;
 	}
 	else if(GetEntry(0))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Go to Default"));
+		// UE_LOG(LogTemp, Warning, TEXT("Go to Default"));
 		TempEntry = GetEntry(0);
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("FAILED"));
+		// UE_LOG(LogTemp, Warning, TEXT("FAILED"));
 		return;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("EntrySize"));
+	// UE_LOG(LogTemp, Warning, TEXT("EntrySize"));
 	int Tempindex = GetEntryIndex(TempEntry)+Amount;
 
 	if(Tempindex < 0)
@@ -360,7 +362,7 @@ void UDataList::RebuildList()
 		return;
 		UE_LOG(LogTemp, Warning, TEXT("No Valid Parent Panel"));
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Rebuilding List"));
+	// UE_LOG(LogTemp, Warning, TEXT("Rebuilding List"));
 	//Create Content Panel
 	switch (Format)
 	{

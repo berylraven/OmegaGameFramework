@@ -35,7 +35,7 @@ void UInputReceiverComponent::OverrideInputOwner(AActor* NewOwner)
 {
 	if(!NewOwner || !InputAction)
 	{
-		UE_LOG(LogTemp, Display, TEXT("New Owner ot InputAction are invalid") );
+		UE_LOG(LogTemp, Display, TEXT("New Owner of InputAction are invalid") );
 		return;
 	}
 	UEnhancedInputComponent* NewInputComp = Cast<UEnhancedInputComponent>(NewOwner->InputComponent);

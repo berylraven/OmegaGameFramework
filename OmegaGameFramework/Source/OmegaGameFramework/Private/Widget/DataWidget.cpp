@@ -93,11 +93,11 @@ void UDataWidget::Hover()
 	}
 	if(UUserWidget* TempWidget = GetOwningLocalPlayer()->GetSubsystem<UOmegaPlayerSubsystem>()->HoveredWidget)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Attempt Unhvover"));
+		// UE_LOG(LogTemp, Warning, TEXT("Attempt Unhvover"));
 		Cast<UDataWidget>(TempWidget)->Unhover();
 	}
 	
-	UE_LOG(LogTemp, Warning, TEXT("Success Hover"));
+	// UE_LOG(LogTemp, Warning, TEXT("Success Hover"));
 	if(HoverSound)
 	{
 		UGameplayStatics::PlaySound2D(this, HoverSound);
@@ -118,7 +118,7 @@ void UDataWidget::Unhover()
 	{
 		return;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Success Unhover"));
+	// UE_LOG(LogTemp, Warning, TEXT("Success Unhover"));
 	OnHovered.Broadcast(this, false);
 	if (GetHoverAnimation())
 	{

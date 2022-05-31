@@ -1,5 +1,6 @@
 using UnrealBuildTool;
- 
+using System.IO;
+
 public class OmegaData : ModuleRules
 {
 	public OmegaData(ReadOnlyTargetRules Target) : base(Target)
@@ -8,7 +9,7 @@ public class OmegaData : ModuleRules
 
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "GameplayTags", "OmegaGameFramework", "SlateCore", "UMG"});
  
-		PublicIncludePaths.AddRange(new string[] {"OmegaData/Public"});
-		PrivateIncludePaths.AddRange(new string[] {"OmegaData/Private"});
+		PublicIncludePaths.Add( Path.Combine(ModuleDirectory, "Public") );
+		PrivateIncludePaths.Add( Path.Combine(ModuleDirectory, "Private") );
 	}
 }

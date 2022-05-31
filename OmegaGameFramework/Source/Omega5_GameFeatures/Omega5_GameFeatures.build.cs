@@ -1,5 +1,6 @@
 using UnrealBuildTool;
- 
+using System.IO;
+
 public class Omega5_GameFeatures : ModuleRules
 {
 	public Omega5_GameFeatures(ReadOnlyTargetRules Target) : base(Target)
@@ -19,7 +20,7 @@ public class Omega5_GameFeatures : ModuleRules
 			"ModularGameplay"
 		});
  
-		PublicIncludePaths.AddRange(new string[] {"Omega5_GameFeatures/Public"});
-		PrivateIncludePaths.AddRange(new string[] {"Omega5_GameFeatures/Private"});
+		PublicIncludePaths.Add( Path.Combine(ModuleDirectory, "Public") );
+		PrivateIncludePaths.Add( Path.Combine(ModuleDirectory, "Private") );
 	}
 }
