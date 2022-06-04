@@ -74,8 +74,8 @@ UDataWidget* UDataList::AddAssetToList(UObject* Asset, FString Flag)
 	//Create Entry Widget
 	UDataWidget* TempEntry = CreateWidget<UDataWidget>(this, EntryClass);
 
-	// Do not add if hidden
-	if(TempEntry->IsEntityHidden(Asset))
+	// Do not add if hidden or invalid
+	if(!IsValid(Asset) || TempEntry->IsEntityHidden(Asset))
 	{
 		return nullptr;
 	}
@@ -104,14 +104,17 @@ UDataWidget* UDataList::AddAssetToList(UObject* Asset, FString Flag)
 
 		switch (Orientation)
 		{
-		case EOrientation::Orient_Horizontal:
-			HSlotRef = Cast<UHorizontalBox>(ListPanel)->AddChildToHorizontalBox(TempEntry);
-			HSlotRef->SetHorizontalAlignment(EntryHorizontalAlignment);
-			HSlotRef->SetVerticalAlignment(EntryVerticalAlignment);
-			HSlotRef->SetSize(EntrySize);
-
+		case EOrientation::Orient_Horizontal: {
+			auto hbox = Cast<UHorizontalBox>(ListPanel);
+			if (hbox) {
+				HSlotRef = hbox->AddChildToHorizontalBox(TempEntry);
+				HSlotRef->SetHorizontalAlignment(EntryHorizontalAlignment);
+				HSlotRef->SetVerticalAlignment(EntryVerticalAlignment);
+				HSlotRef->SetSize(EntrySize);
+			}
 			break;
-		case EOrientation::Orient_Vertical:
+			}
+		case EOrientation::Orient_Vertical: {
 			auto vbox = Cast<UVerticalBox>(ListPanel);
 			if (vbox) {
 				VSlotRef = vbox->AddChildToVerticalBox(TempEntry);
@@ -120,8 +123,8 @@ UDataWidget* UDataList::AddAssetToList(UObject* Asset, FString Flag)
 				VSlotRef->SetSize(EntrySize);
 			}
 			break;
+			}
 		}
-
 		break;
 	case EDataListFormat::Format_ScrollBox:
 		Cast<UScrollBox>(ListPanel)->AddChild(TempEntry);
@@ -144,6 +147,7 @@ UDataWidget* UDataList::AddAssetToList(UObject* Asset, FString Flag)
 		}
 
 		USlotRef = Cast<UUniformGridPanel>(ListPanel)->AddChildToUniformGrid(TempEntry, InRow, InCol);
+
 		USlotRef->SetHorizontalAlignment(EntryHorizontalAlignment);
 		USlotRef->SetVerticalAlignment(EntryVerticalAlignment);
 		if (CurrentB>=(UniformGridMaxValue - 1))
