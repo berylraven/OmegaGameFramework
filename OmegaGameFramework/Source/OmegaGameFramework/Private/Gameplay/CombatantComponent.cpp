@@ -545,17 +545,14 @@ bool UCombatantComponent::SetDamageModifierActive(UObject* Modifier, bool bActiv
 			DamageModifiers.Remove(Modifier);
 		}
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Mod failed to be set: %s (requested state: %s)"), *Modifier->GetName(), (bActive ? TEXT("true") : TEXT("false")));
 	return false;
 }
 
 TArray<UObject*> UCombatantComponent::GetDamageModifiers()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Getting damage modifiers"));
 	TArray<UObject*> OutMods;
 	for(auto* TempMod : DamageModifiers)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Mod: %s"), *TempMod->GetName());
 		if(TempMod && TempMod->Implements<UDataInterface_DamageModifier>())
 		{
 			OutMods.Add(TempMod);
